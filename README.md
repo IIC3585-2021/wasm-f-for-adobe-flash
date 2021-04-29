@@ -40,6 +40,10 @@ http://localhost:8081/
 
 Apretar click para que el dinosaurio azul salte, y apretar cualquier tecla del teclado para que el dinosaurio rojo salte.
 
+### Fuentes:
+
+Split screen: https://www.w3schools.com/howto/howto_css_split_screen.asp
+
 
 
 
