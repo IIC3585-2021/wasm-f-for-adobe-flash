@@ -1,4 +1,4 @@
-import {loadGraph} from './drawer.js';
+import { loadGraph } from './draw.js';
 
 class Node {
     constructor(val){
@@ -9,21 +9,36 @@ class Node {
 // 漢字
 const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-class Graph {
-    constructor(matrix){
-        this.matrix = matrix;
-        this.nodes = [];
-        for (let i = 0; i < matrix.length; i++) {
-            this.nodes.push(new Node(abc[i]))
-        }
-        for (let i = 0; i < matrix.length; i++) {
-            for (let j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] > 0) {
-                    let from = this.nodes[i];
-                    let to = this.nodes[j];
-                    from.connections.push(to);
-                }
-            }
-        }
+// input = [[A,B,1], [A,C,2], [B,C,3]]
+function draw_graph(input) {
+    let aux = input.split(", ");
+    aux = aux.map((elem) => elem.split(" "));
+
+    let nodes = [];
+    let edges = [];
+    let from;
+    let to;
+    let distance;
+    let nodes_set = new Set();
+    for (let i = 0; i < aux.length; i++) {
+        [from, to, distance] = aux[i];
+        nodes_set.add(from);
+        nodes_set.add(to);
+        edges.push({from: from, to: to, weight: distance})
     }
+    nodes_set.forEach(element => {
+        nodes.push({"id": element})
+    });
+    let json_data = {nodes: nodes, edges: edges};
+    loadGraph(json_data)
+}
+
+document.getElementById("calculate").addEventListener("click", getInput);
+
+function getInput() {
+    const input_element = document.getElementById("graph")
+    let input = input_element.value;
+    input_element.value = "";
+    input = "A B 1, A C 2, B C 3"
+    draw_graph(input)
 }
