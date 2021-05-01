@@ -1,44 +1,49 @@
-import { loadGraph } from './draw.js';
-
-class Node {
-    constructor(val){
-        this.val = val;
-        this.connections = [];
-    }
-}
+import { createGraph, reDraw } from './draw.js';
 // 漢字
 const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-// input = [[A,B,1], [A,C,2], [B,C,3]]
-function draw_graph(input) {
+const chart = createGraph()
+
+let nodesSet = new Set();
+let edges = [];
+
+function getNodesAndEdges(input) {
+    if (!input) {
+        return
+    }
     let aux = input.split(", ");
     aux = aux.map((elem) => elem.split(" "));
-
-    let nodes = [];
-    let edges = [];
     let from;
     let to;
     let distance;
-    let nodes_set = new Set();
     for (let i = 0; i < aux.length; i++) {
         [from, to, distance] = aux[i];
-        nodes_set.add(from);
-        nodes_set.add(to);
+        nodesSet.add(from);
+        nodesSet.add(to);
         edges.push({from: from, to: to, weight: distance})
     }
-    nodes_set.forEach(element => {
-        nodes.push({"id": element})
-    });
-    let json_data = {nodes: nodes, edges: edges};
-    loadGraph(json_data)
 }
 
-document.getElementById("calculate").addEventListener("click", getInput);
+document.getElementById("add").addEventListener("click", getInput);
+document.getElementById("clean").addEventListener("click", cleanGraph);
+
+
 
 function getInput() {
-    const input_element = document.getElementById("graph")
-    let input = input_element.value;
-    input_element.value = "";
-    input = "A B 1, A C 2, B C 3"
-    draw_graph(input)
+    const inputElement = document.getElementById("graph")
+    let input = inputElement.value;
+    inputElement.value = "";
+    getNodesAndEdges(input);
+    let nodes = [];
+    nodesSet.forEach(element => {
+        nodes.push({"id": element});
+    });
+    let jsonData = {nodes: nodes, edges: edges};
+    chart = reDraw(chart, jsonData);
+}
+
+function cleanGraph() {
+    reDraw(chart, {nodes: [], edges: []})
+    nodesSet = new Set();
+    edges = [];
 }
