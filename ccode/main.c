@@ -6,9 +6,9 @@
 /** Estructura de una arraylist */
 struct arraylist_list
 {
-  int size;
-  int count;
-  int* array;
+   int size;
+   int count;
+   int* array;
 };
 
 
@@ -20,9 +20,9 @@ typedef struct arraylist_list ArrayList;
 /** Estructura de una arraylist */
 struct matrix_list
 {
-  int size;
-  int count;
-  ArrayList** arraylist_pointer;
+   int size;
+   int count;
+   ArrayList** arraylist_pointer;
 };
 
 typedef struct matrix_list Matrix;
@@ -31,38 +31,38 @@ typedef struct matrix_list Matrix;
 ArrayList* arraylist_init(int length, int pos)
 {
   ArrayList *new_array;
-  new_array = malloc(sizeof(ArrayList));
-  new_array -> size = length;
-  new_array -> count = 0;
-  new_array -> array = malloc(sizeof(int)*length);
+   new_array = malloc(sizeof(ArrayList));
+   new_array -> size = length;
+   new_array -> count = 0;
+   new_array -> array = malloc(sizeof(int)*length);
 
-  for(int i = 0;i < length;i++)
-  {
-     if (pos == i)
-     {
-        new_array -> array[i] = 0;
-     } else{
-        new_array -> array[i] = -1;
-     }
-  }
+   for(int i = 0;i < length;i++)
+   {
+      if (pos == i)
+      {
+         new_array -> array[i] = 0;
+      } else{
+         new_array -> array[i] = -1;
+      }
+   }
 
-  return new_array;
+   return new_array;
 }
 
 Matrix* matrix_init (int length)
 {
-  Matrix *new_array;
-  new_array = malloc(sizeof(Matrix));
-  new_array -> size = length;
-  new_array -> count = 0;
-  new_array -> arraylist_pointer = malloc(sizeof(ArrayList*)*length);
+   Matrix *new_array;
+   new_array = malloc(sizeof(Matrix));
+   new_array -> size = length;
+   new_array -> count = 0;
+   new_array -> arraylist_pointer = malloc(sizeof(ArrayList*)*length);
 
-  for(int i = 0;i < length;i++)
-  {
-     new_array -> arraylist_pointer[i] = arraylist_init(length, i);
-  }
+   for(int i = 0;i < length;i++)
+   {
+      new_array -> arraylist_pointer[i] = arraylist_init(length, i);
+   }
 
-  return new_array;
+   return new_array;
 }
 
 /** Libera todos los recursos asociados a la lista */
@@ -72,7 +72,7 @@ void arraylist_destroy(ArrayList* list)
    free(list);
 }
 
-   /** Libera todos los recursos asociados a la matrix */
+/** Libera todos los recursos asociados a la matrix */
 void matrix_destroy(Matrix* matrix)
 {
 
