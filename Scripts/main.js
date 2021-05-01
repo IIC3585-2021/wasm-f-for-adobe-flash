@@ -55,10 +55,9 @@ function calculateOptimal() {
     for (let i = 0; i < (solutionElements.length - 1); i++) {
         solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
     }
-    console.log(solutionEdges)
     jsonData.edges.forEach((element, i) => {
         if (solutionEdges.some((solutionEdge) => (solutionEdge.from === element.from && solutionEdge.to === element.to))) {
-            jsonData.edges[i] = {...element, stroke: "#FFB27A"}
+            jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
         }
     })
     reDraw(chart, jsonData)

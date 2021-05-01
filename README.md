@@ -43,7 +43,7 @@ Apretar click para que el dinosaurio azul salte, y apretar cualquier tecla del t
 ### Fuentes:
 
 - Split screen: https://www.w3schools.com/howto/howto_css_split_screen.asp
-- Dibujando el grafo con AnyChart: https://www.anychart.com/blog/2020/07/22/network-graph-javascript/
+- Network Graph con AnyChart: https://www.anychart.com/blog/2020/07/22/network-graph-javascript/
 
 
 
