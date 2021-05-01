@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-int main() {
-   char *arr  ;
-   FILE *fptr;
-   fptr = fopen("input.txt", "r");
+#include <stdint.h>
 
-   fscanf(fptr, "%m[^\n]", &arr);
+char* fib(char* arr){
+
    printf("Data from the file:\n%s\n", arr);
    int cont = 0;
-   int** matrix;
    int letter_number;
    int number = 0;
    while (arr[cont] != '\0'){
@@ -20,10 +17,24 @@ int main() {
          letter_number = arr[cont] - 48;
       } else if(arr[cont] == 32 )
       {
-          printf("Single %c %d %d\n", arr[cont],arr[cont], letter_number);
       }
       cont ++;
    }
 
+   return arr;
+
+}
+
+
+int main() {
+   FILE *fptr;
+   fptr = fopen("input.txt", "r");
+   int matrix[27][27];
+   char *arr  ;
+
+   fscanf(fptr, "%m[^\n]", &arr);
+
    fclose(fptr);
+
+   return 0;
 }
