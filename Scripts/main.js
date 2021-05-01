@@ -1,11 +1,10 @@
 import { createGraph, reDraw } from './draw.js';
-// 漢字
-const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const chart = createGraph()
+let chart = createGraph()
 
 let nodesSet = new Set();
 let edges = [];
+let jsonData = {nodes: [], edges: []};
 
 function getNodesAndEdges(input) {
     if (!input) {
@@ -26,7 +25,7 @@ function getNodesAndEdges(input) {
 
 document.getElementById("add").addEventListener("click", getInput);
 document.getElementById("clean").addEventListener("click", cleanGraph);
-
+document.getElementById("calculate").addEventListener("click", calculateOptimal);
 
 
 function getInput() {
@@ -38,12 +37,29 @@ function getInput() {
     nodesSet.forEach(element => {
         nodes.push({"id": element});
     });
-    let jsonData = {nodes: nodes, edges: edges};
+    jsonData = {nodes: nodes, edges: edges};
     chart = reDraw(chart, jsonData);
 }
 
 function cleanGraph() {
-    reDraw(chart, {nodes: [], edges: []})
+    jsonData = {nodes: [], edges: []};
+    reDraw(chart, jsonData)
     nodesSet = new Set();
     edges = [];
+}
+
+function calculateOptimal() {
+    const optimalSolution = "abc";
+    const solutionElements = optimalSolution.split("")
+    let solutionEdges = [];
+    for (let i = 0; i < (solutionElements.length - 1); i++) {
+        solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
+    }
+    console.log(solutionEdges)
+    jsonData.edges.forEach((element, i) => {
+        if (solutionEdges.some((solutionEdge) => (solutionEdge.from === element.from && solutionEdge.to === element.to))) {
+            jsonData.edges[i] = {...element, stroke: "#FFB27A"}
+        }
+    })
+    reDraw(chart, jsonData)
 }
