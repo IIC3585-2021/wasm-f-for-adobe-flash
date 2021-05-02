@@ -22,19 +22,13 @@ Aproximación al problema:
 
 ## Como ejecutar:
 
-Se debe tener instalado nodeJS, y dentro del mismo se ocupara el package:
+Primero que nada se debe tener instalado python 3. Una vez instalado se debe correr el siguiente comando en la carpeta en la que se encuentra el archivo "index.html":
 
-```http-server``` para instalarlo se debe correr:
-
-```npm install http-server```
-
-Una vez instalado, solo debe ejecutarse dentro del directorio:
-
-```npm start```
+```python3 -m http.server```
 
 El sitio será cargado en:
 
-http://localhost:8081/
+http://localhost:8000/
 
 ## Como jugar:
 

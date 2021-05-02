@@ -65,7 +65,7 @@ function calculateOptimal() {
     })
     jsons.push(jsonData)
     chart = reDraw(chart, jsonData)
-    // jsonData = {nodes: [], edges: []};
+    jsonData = {nodes: [], edges: []};
 
     const graphNumber = jsons.length
 
