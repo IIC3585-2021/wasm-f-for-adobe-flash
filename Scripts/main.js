@@ -84,10 +84,18 @@ function cleanGraph() {
     edges = [];
 }
 
-function calculateOptimal() {
+async function calculateOptimal() {
+    // Calculo de solución y tiempo en Javascript
+    // const secondsJS = new Date().getTime();
+    // const javascriptSolution = solve()
+    // const javascripTime = (new Date().getTime()) - secondsJS;
+    const javascripTime = 1;
+
+    // Calculo de solución y tiempo en C
+    const secondsC = new Date().getTime();
     const optimalSolution = "abc";
-    const javascripTime = 2;
-    const cTime = 1;
+    const cTime = (new Date().getTime()) - secondsC;
+
     const solutionElements = optimalSolution.split("")
     let solutionEdges = [];
     for (let i = 0; i < (solutionElements.length - 1); i++) {
