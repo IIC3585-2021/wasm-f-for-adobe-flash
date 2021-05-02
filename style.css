@@ -23,19 +23,20 @@
 
 /* If you want the content centered horizontally and vertically */
 .centered {
-  position: absolute;
-  top: 50%;
+  margin: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
 }
 
 .form_container {
   text-align: center;
+  left: 50%;
 }
 
-/* Style the image inside the centered container, if needed */
-.centered img {
-  width: 150px;
-  border-radius: 50%;
+.table-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  left: 50%;
+  text-align: center;
 }
+
