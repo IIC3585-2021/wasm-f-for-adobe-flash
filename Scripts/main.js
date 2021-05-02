@@ -7,16 +7,16 @@ let nodesSet = new Set();
 let edges = [];
 let jsonData = {nodes: [], edges: []};
 let jsons = []
-
-
-function letter_to_index(letter) {
-    function ord(str){return str.charCodeAt(0);}
-    return ord(letter.toUpperCase())-ord("A");
+let matrix = []
+let n = 26;
+for (let i = 0; i < n; i++){
+    matrix[i] = []
+    for (let j = 0; j < n; j++) {
+        matrix[i][j] = Number.POSITIVE_INFINITY;
+    }
+    matrix[i][i] = -1;
 }
-
-function build_matrix_from_input(input) {
-    let matrix = []
-    let n = 26;
+function resetMatrix(){
     for (let i = 0; i < n; i++){
         matrix[i] = []
         for (let j = 0; j < n; j++) {
@@ -24,7 +24,13 @@ function build_matrix_from_input(input) {
         }
         matrix[i][i] = -1;
     }
+}
+function letter_to_index(letter) {
+    function ord(str){return str.charCodeAt(0);}
+    return ord(letter.toUpperCase())-ord("A");
+}
 
+function buildMatrix(input) {
     let aux = input.split(", ");
     aux = aux.map((elem) => elem.split(" "));
     let from;
@@ -39,7 +45,6 @@ function build_matrix_from_input(input) {
         matrix[from][to] = parseInt(distance)
         matrix[to][from] = parseInt(distance)
     }
-    return matrix
 }
 
 function getNodesAndEdges(input) {
@@ -69,6 +74,7 @@ function getInput() {
     let input = inputElement.value;
     inputElement.value = "";
     getNodesAndEdges(input);
+    buildMatrix(input);
     let nodes = [];
     nodesSet.forEach(element => {
         nodes.push({"id": element});
@@ -78,6 +84,7 @@ function getInput() {
 }
 
 function cleanGraph() {
+    resetMatrix();
     jsonData = {nodes: [], edges: []};
     chart = reDraw(chart, jsonData)
     nodesSet = new Set();
@@ -86,10 +93,10 @@ function cleanGraph() {
 
 async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
-    // const secondsJS = new Date().getTime();
-    // const javascriptSolution = solve()
-    // const javascripTime = (new Date().getTime()) - secondsJS;
-    const javascripTime = 1;
+    const secondsJS = new Date().getTime();
+    const javascriptSolution = solve(matrix)
+    const javascripTime = (new Date().getTime()) - secondsJS;
+    // const javascripTime = 1;
 
     // Calculo de solución y tiempo en C
     const secondsC = new Date().getTime();
