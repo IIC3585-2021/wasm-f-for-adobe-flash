@@ -51,9 +51,16 @@ function cleanGraph() {
 }
 
 function calculateOptimal() {
+    // Calculo de solución y tiempo en Javascript
+    // const secondsJS = new Date().getTime() / 1000;
+    // const javascriptSolution = solve()
+    // const javascripTime = secondsJS - (new Date().getTime() / 1000);
+    const javascripTime = 1;
+
+    const secondsC = new Date().getTime() / 1000;
     const optimalSolution = "abc";
-    const javascripTime = 2;
-    const cTime = 1;
+    const cTime = secondsC - (new Date().getTime() / 1000);
+
     const solutionElements = optimalSolution.split("")
     let solutionEdges = [];
     for (let i = 0; i < (solutionElements.length - 1); i++) {
