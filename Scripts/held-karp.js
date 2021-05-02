@@ -12,7 +12,7 @@ function solve(matrix) {
     }
     res += `${nodes[0]}`
     // [b,[x,y]] = min dist from a to node b passing through x and y
-    let min_ways = {}; 
+    let min_ways = {};
     let parents = {}
 
     // finds min distance from nodes[0] to node passing through all must_visit
@@ -40,19 +40,19 @@ function solve(matrix) {
         parents[[node_ind,must_visit]] = aux_parent;
         min_ways[[node_ind,must_visit]] = res;
         return res
-        
+
     }
 
     find_min_way(nodes[0],[...nodes.slice(1,nodes.length)])
 
-    // we construct the 
+    // we construct the
     current_key = [...nodes]
     for (let i = 0; i < nodes.length-1; i++) {
         res += `,${parents[current_key].toString()}`
         current_key = [parents[current_key], ...without(current_key.slice(1,current_key.length),parents[current_key])]
     }
 
-    
+
     return  res.split(",").map(elem => abc[elem]?? null).join("")
 }
 
@@ -66,19 +66,4 @@ function without(list, node){
     return res
 }
 
-
-// let matrix = [
-//     [0,1,15,6],
-//     [2,0,7,3],
-//     [9,6,0,12],
-//     [10,4,8,0],
-// ]
-
-// matrix = [
-//     [0,1,20,1],
-//     [1,0,1,20],
-//     [20,1,0,1],
-//     [1,20,1,0],
-// ]
-
-// console.log(solve(matrix))
+export { solve };

@@ -1,4 +1,5 @@
 import { createGraph, reDraw } from './draw.js';
+import { solve } from './held-karp.js'
 
 let chart = createGraph()
 
