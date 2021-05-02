@@ -57,6 +57,7 @@ async function calculateOptimal() {
     // const javascripTime = (new Date().getTime()) - secondsJS;
     const javascripTime = 1;
 
+    // Calculo de solución y tiempo en C
     const secondsC = new Date().getTime();
     const optimalSolution = "abc";
     const cTime = (new Date().getTime()) - secondsC;
