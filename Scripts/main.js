@@ -5,7 +5,6 @@ let chart = createGraph()
 let nodesSet = new Set();
 let edges = [];
 let jsonData = {nodes: [], edges: []};
-let temporalInput = "";
 let jsons = []
 
 function getNodesAndEdges(input) {
@@ -32,9 +31,9 @@ document.getElementById("calculate").addEventListener("click", calculateOptimal)
 
 function getInput() {
     const inputElement = document.getElementById("graph")
-    temporalInput = inputElement.value;
+    let input = inputElement.value;
     inputElement.value = "";
-    getNodesAndEdges(temporalInput);
+    getNodesAndEdges(input);
     let nodes = [];
     nodesSet.forEach(element => {
         nodes.push({"id": element});
@@ -45,7 +44,7 @@ function getInput() {
 
 function cleanGraph() {
     jsonData = {nodes: [], edges: []};
-    reDraw(chart, jsonData)
+    chart = reDraw(chart, jsonData)
     nodesSet = new Set();
     edges = [];
 }
@@ -65,15 +64,18 @@ function calculateOptimal() {
         }
     })
     jsons.push(jsonData)
-    reDraw(chart, jsonData)
+    chart = reDraw(chart, jsonData)
+    // jsonData = {nodes: [], edges: []};
+
+    const graphNumber = jsons.length
 
     const tableBody = document.getElementById("table-entries")
     const tableRow = document.createElement("tr")
-    // tableRow.id = "table-row-" + jsons.length.
+    tableRow.addEventListener("click", () => {drawPrevious(graphNumber - 1)})
 
     const firstCol = document.createElement("td")
     firstCol.scope = "row"
-    firstCol.appendChild(document.createTextNode(jsons.length))
+    firstCol.appendChild(document.createTextNode(graphNumber))
 
     const secondCol = document.createElement("td")
     secondCol.appendChild(document.createTextNode(javascripTime))
@@ -86,4 +88,8 @@ function calculateOptimal() {
     tableRow.appendChild(thirdCol)
 
     tableBody.appendChild(tableRow)
+}
+
+function drawPrevious(index) {
+    chart = reDraw(chart, jsons[index])
 }
