@@ -8,6 +8,40 @@ let edges = [];
 let jsonData = {nodes: [], edges: []};
 let jsons = []
 
+
+function letter_to_index(letter) {
+    function ord(str){return str.charCodeAt(0);}
+    return ord(letter.toUpperCase())-ord("A");
+}
+
+function build_matrix_from_input(input) {
+    let matrix = []
+    let n = 26;
+    for (let i = 0; i < n; i++){
+        matrix[i] = []
+        for (let j = 0; j < n; j++) {
+            matrix[i][j] = Number.POSITIVE_INFINITY;
+        }
+        matrix[i][i] = -1;
+    }
+
+    let aux = input.split(", ");
+    aux = aux.map((elem) => elem.split(" "));
+    let from;
+    let to;
+    let distance;
+    for (let i = 0; i < aux.length; i++) {
+        [from, to, distance] = aux[i];
+        from = letter_to_index(from)
+        to = letter_to_index(to)
+        matrix[from][from] = 0
+        matrix[to][to] = 0
+        matrix[from][to] = parseInt(distance)
+        matrix[to][from] = parseInt(distance)
+    }
+    return matrix
+}
+
 function getNodesAndEdges(input) {
     if (!input) {
         return
