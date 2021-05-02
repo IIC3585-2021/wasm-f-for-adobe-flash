@@ -50,16 +50,16 @@ function cleanGraph() {
     edges = [];
 }
 
-function calculateOptimal() {
+async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
-    // const secondsJS = new Date().getTime() / 1000;
+    // const secondsJS = new Date().getTime();
     // const javascriptSolution = solve()
-    // const javascripTime = secondsJS - (new Date().getTime() / 1000);
+    // const javascripTime = (new Date().getTime()) - secondsJS;
     const javascripTime = 1;
 
-    const secondsC = new Date().getTime() / 1000;
+    const secondsC = new Date().getTime();
     const optimalSolution = "abc";
-    const cTime = secondsC - (new Date().getTime() / 1000);
+    const cTime = (new Date().getTime()) - secondsC;
 
     const solutionElements = optimalSolution.split("")
     let solutionEdges = [];
