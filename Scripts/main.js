@@ -8,6 +8,7 @@ let edges = [];
 let jsonData = {nodes: [], edges: []};
 let jsons = []
 let matrix = []
+let temporalInput = "";
 let n = 26;
 for (let i = 0; i < n; i++){
     matrix[i] = []
@@ -72,9 +73,13 @@ document.getElementById("calculate").addEventListener("click", calculateOptimal)
 function getInput() {
     const inputElement = document.getElementById("graph")
     let input = inputElement.value;
+    if (temporalInput === "") {
+        temporalInput += input;
+    } else {
+        temporalInput = temporalInput + ", " + input;
+    }
     inputElement.value = "";
     getNodesAndEdges(input);
-    buildMatrix(input);
     let nodes = [];
     nodesSet.forEach(element => {
         nodes.push({"id": element});
@@ -84,6 +89,7 @@ function getInput() {
 }
 
 function cleanGraph() {
+    temporalInput = "";
     resetMatrix();
     jsonData = {nodes: [], edges: []};
     chart = reDraw(chart, jsonData)
@@ -94,6 +100,7 @@ function cleanGraph() {
 async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
     const secondsJS = new Date().getTime();
+    buildMatrix(temporalInput);
     const javascriptSolution = solve(matrix)
     const javascripTime = (new Date().getTime()) - secondsJS;
     // const javascripTime = 1;
@@ -103,7 +110,8 @@ async function calculateOptimal() {
     const optimalSolution = "abc";
     const cTime = (new Date().getTime()) - secondsC;
 
-    const solutionElements = optimalSolution.split("")
+    const solutionElements = javascriptSolution.split("")
+    // solutionElements.push(solutionElements[0])
     let solutionEdges = [];
     for (let i = 0; i < (solutionElements.length - 1); i++) {
         solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
