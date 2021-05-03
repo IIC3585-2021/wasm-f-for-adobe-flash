@@ -111,16 +111,22 @@ async function calculateOptimal() {
     const cTime = (new Date().getTime()) - secondsC;
 
     const solutionElements = javascriptSolution.split("")
-    // solutionElements.push(solutionElements[0])
     let solutionEdges = [];
     for (let i = 0; i < (solutionElements.length - 1); i++) {
         solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
     }
+    solutionEdges.push({from: solutionElements[0], to: solutionElements[solutionElements.length-1]})
     jsonData.edges.forEach((element, i) => {
-        if (solutionEdges.some((solutionEdge) => (solutionEdge.from === element.from && solutionEdge.to === element.to))) {
+        if (solutionEdges.some((solutionEdge) => ((solutionEdge.from === element.from && solutionEdge.to === element.to) ||
+        (solutionEdge.to === element.from && solutionEdge.from === element.to)))) {
+            jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
+        }
+        else if ((solutionEdges[solutionEdges.length-1].from === element.from && solutionEdges[solutionEdges.length-1].to === element.to) ||
+                (solutionEdges[solutionEdges.length-1].to === element.from && solutionEdges[solutionEdges.length-1].to === element.from)) {
             jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
         }
     })
+
     jsons.push(jsonData)
     chart = reDraw(chart, jsonData)
     jsonData = {nodes: [], edges: []};

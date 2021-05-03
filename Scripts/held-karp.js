@@ -51,7 +51,7 @@ function solve(matrix) {
         res += `,${parents[current_key].toString()}`
         current_key = [parents[current_key], ...without(current_key.slice(1,current_key.length),parents[current_key])]
     }
-    
+
     return  res.split(",").map(elem => abc[elem]?? null).join("")
 }
 
