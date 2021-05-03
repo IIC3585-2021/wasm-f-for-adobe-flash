@@ -107,6 +107,7 @@ async function calculateOptimal() {
     const javascripTime = (new Date().getTime()) - secondsJS;
     // const javascripTime = 1;
 
+    console.log(javascriptSolution)
     // Calculo de solución y tiempo en C
     const secondsC = new Date().getTime();
     const optimalSolution = "abc";
@@ -118,13 +119,14 @@ async function calculateOptimal() {
         solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
     }
     solutionEdges.push({from: solutionElements[0], to: solutionElements[solutionElements.length-1]})
+    console.log(solutionEdges)
     jsonData.edges.forEach((element, i) => {
         if (solutionEdges.some((solutionEdge) => ((solutionEdge.from === element.from && solutionEdge.to === element.to) ||
         (solutionEdge.to === element.from && solutionEdge.from === element.to)))) {
             jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
         }
         else if ((solutionEdges[solutionEdges.length-1].from === element.from && solutionEdges[solutionEdges.length-1].to === element.to) ||
-                (solutionEdges[solutionEdges.length-1].to === element.from && solutionEdges[solutionEdges.length-1].to === element.from)) {
+                (solutionEdges[solutionEdges.length-1].to === element.from && solutionEdges[solutionEdges.length-1].from === element.to)) {
             jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
         }
     })
