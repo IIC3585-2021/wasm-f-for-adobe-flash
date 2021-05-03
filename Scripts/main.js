@@ -101,7 +101,9 @@ async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
     const secondsJS = new Date().getTime();
     buildMatrix(temporalInput);
-    const javascriptSolution = solve(matrix)
+    let javascriptSolution;
+    let cost;
+    [javascriptSolution, cost] = solve(matrix);
     const javascripTime = (new Date().getTime()) - secondsJS;
     // const javascripTime = 1;
 
@@ -142,14 +144,18 @@ async function calculateOptimal() {
     firstCol.appendChild(document.createTextNode(graphNumber))
 
     const secondCol = document.createElement("td")
-    secondCol.appendChild(document.createTextNode(javascripTime))
+    secondCol.appendChild(document.createTextNode(cost))
 
     const thirdCol = document.createElement("td")
-    thirdCol.appendChild(document.createTextNode(cTime))
+    thirdCol.appendChild(document.createTextNode(javascripTime))
+
+    const fourthCol = document.createElement("td")
+    fourthCol.appendChild(document.createTextNode(cTime))
 
     tableRow.appendChild(firstCol)
     tableRow.appendChild(secondCol)
     tableRow.appendChild(thirdCol)
+    tableRow.appendChild(fourthCol)
 
     tableBody.appendChild(tableRow)
 }

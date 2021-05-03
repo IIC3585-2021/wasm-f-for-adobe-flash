@@ -43,7 +43,7 @@ function solve(matrix) {
 
     }
 
-    find_min_way(nodes[0],[...nodes.slice(1,nodes.length)])
+    let cost = find_min_way(nodes[0],[...nodes.slice(1,nodes.length)])
 
     // we construct the road
     let current_key = [...nodes];
@@ -52,7 +52,7 @@ function solve(matrix) {
         current_key = [parents[current_key], ...without(current_key.slice(1,current_key.length),parents[current_key])]
     }
 
-    return  res.split(",").map(elem => abc[elem]?? null).join("")
+    return  [res.split(",").map(elem => abc[elem]?? null).join(""),cost]
 }
 
 function without(list, node){
