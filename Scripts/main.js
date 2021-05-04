@@ -1,5 +1,6 @@
 import { createGraph, reDraw } from './draw.js';
-import { solve } from './held-karp.js'
+import { solve } from './held-karp.js';
+import Module from './findbestWASM.js';
 
 let chart = createGraph()
 
@@ -97,10 +98,14 @@ function cleanGraph() {
     edges = [];
 }
 
+
 async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
     const secondsJS = new Date().getTime();
     buildMatrix(temporalInput);
+    console.log('holi')
+    const ptr_array = [];
+    console.log(temporalInput)
     let javascriptSolution;
     let cost;
     [javascriptSolution, cost] = solve(matrix);
@@ -110,8 +115,13 @@ async function calculateOptimal() {
     console.log(javascriptSolution)
     // Calculo de solución y tiempo en C
     const secondsC = new Date().getTime();
-    const optimalSolution = "abc";
+    Module().then(function(mymodule) {
+        const ptr  = mymodule.allocate(mymodule.intArrayFromString(temporalInput), mymodule["ALLOC_NORMAL"]);
+        const optimalSolutionC =(mymodule.UTF8ToString(mymodule._findbest(ptr)));
+        console.log('Csolution',optimalSolutionC);
+    })
     const cTime = (new Date().getTime()) - secondsC;
+    //console.log(javascriptSolution[0])
 
     const solutionElements = javascriptSolution.split("")
     let solutionEdges = [];
