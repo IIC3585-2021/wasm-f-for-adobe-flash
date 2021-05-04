@@ -103,43 +103,40 @@ async function calculateOptimal() {
     // Calculo de solución y tiempo en Javascript
     const secondsJS = new Date().getTime();
     buildMatrix(temporalInput);
-    console.log('holi')
     const ptr_array = [];
-    console.log(temporalInput)
     let javascriptSolution;
     let cost;
     [javascriptSolution, cost] = solve(matrix);
     const javascripTime = (new Date().getTime()) - secondsJS;
-    // const javascripTime = 1;
+    console.log('Javascript Solution and cost', javascriptSolution, cost)
 
-    console.log(javascriptSolution)
     // Calculo de solución y tiempo en C
     const secondsC = new Date().getTime();
-    Module().then(function(mymodule) {
+    let optimalSolutionC;
+    await Module().then(function(mymodule) {
         const ptr  = mymodule.allocate(mymodule.intArrayFromString(temporalInput), mymodule["ALLOC_NORMAL"]);
-        const optimalSolutionC =(mymodule.UTF8ToString(mymodule._findbest(ptr)));
-        console.log('Csolution',optimalSolutionC);
+        optimalSolutionC =(mymodule.UTF8ToString(mymodule._findbest(ptr)));
     })
     const cTime = (new Date().getTime()) - secondsC;
-    //console.log(javascriptSolution[0])
-
-    const solutionElements = javascriptSolution.split("")
+    cost = 0;
+    const solutionElements = optimalSolutionC.split("")
     let solutionEdges = [];
     for (let i = 0; i < (solutionElements.length - 1); i++) {
         solutionEdges.push({from: solutionElements[i], to: solutionElements[i + 1]})
     }
-    solutionEdges.push({from: solutionElements[0], to: solutionElements[solutionElements.length-1]})
-    console.log(solutionEdges)
     jsonData.edges.forEach((element, i) => {
         if (solutionEdges.some((solutionEdge) => ((solutionEdge.from === element.from && solutionEdge.to === element.to) ||
         (solutionEdge.to === element.from && solutionEdge.from === element.to)))) {
             jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
+            cost += parseInt(element.weight);
         }
         else if ((solutionEdges[solutionEdges.length-1].from === element.from && solutionEdges[solutionEdges.length-1].to === element.to) ||
-                (solutionEdges[solutionEdges.length-1].to === element.from && solutionEdges[solutionEdges.length-1].from === element.to)) {
+        (solutionEdges[solutionEdges.length-1].to === element.from && solutionEdges[solutionEdges.length-1].from === element.to)) {
             jsonData.edges[i] = {...element, stroke: {color: "#FFB27A", thickness: "3"}}
+            cost += parseInt(element.weight);
         }
     })
+    console.log('C Solution and cost', optimalSolutionC, cost);
 
     jsons.push(jsonData)
     chart = reDraw(chart, jsonData)
