@@ -114,8 +114,9 @@ async function calculateOptimal() {
     const secondsC = new Date().getTime();
     let optimalSolutionC;
     await Module().then(function(mymodule) {
+        console.log(temporalInput);
         const ptr  = mymodule.allocate(mymodule.intArrayFromString(temporalInput), mymodule["ALLOC_NORMAL"]);
-        optimalSolutionC =(mymodule.UTF8ToString(mymodule._findbest(ptr)));
+        optimalSolutionC =(mymodule.UTF8ToString(mymodule._findbest(ptr)))+"A";
     })
     const cTime = (new Date().getTime()) - secondsC;
     cost = 0;
